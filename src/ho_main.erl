@@ -3,7 +3,7 @@
 
 -export([add/2, sub/2]).
 
--export([start_link/1]).
+-export([start_link/0]).
 -export([terminate/2]).
 -export([init/1]).
 -export([handle_call/3]).
@@ -26,7 +26,7 @@ sub(A,B) ->
 %% ビヘイビアのコールバック定義（処理の実体）
 %%
 
-start_link(_Opts) ->
+start_link() ->
 	Args = [],
 	gen_server:start_link({local, ?MODULE}, ?MODULE, Args, []).
 
@@ -38,9 +38,9 @@ terminate(_Reason, State) ->
 	ok.
 
 handle_call({add, A, B}, From, State) ->
-	{reply, {ok, A+B}, State};
+	{reply, {ok, A+B+1000}, State};
 
 handle_call({sub, A, B}, From, State) ->
-	{reply, {ok, A-B}, State}.
+	{reply, {ok, A-B+1000}, State}.
 
 
